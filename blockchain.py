@@ -159,13 +159,16 @@ class Blockchain:
 
          - Find a number p' such that hash(pp') contains leading 4 zeroes
          - Where p is the previous proof, and p' is the new proof
-         
+
         :param last_block: <dict> last Block
         :return: <int>
         """
 
         last_proof = last_block['proof']
         last_hash = self.hash(last_block)
+
+        # There should be a variable that need to be set to true when some other
+        # miners are able to find the proof first
 
         proof = 0
         while self.valid_proof(last_proof, proof, last_hash) is False:
@@ -213,6 +216,10 @@ def mine():
         recipient=node_identifier,
         amount=1,
     )
+
+
+    # Need to add code that would wait for 51% of yes to see the it is a valid
+    # Proof.
 
     # Forge the new Block by adding it to the chain
     previous_hash = blockchain.hash(last_block)
